@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة بيانات النظام الذكي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .dashboard {
+            background: linear-gradient(145deg, #6b7c4a, #8a9d5f);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1400px;
+            width: 100%;
+            border: 8px solid #4a5a35;
+        }
+
+        .header {
+            background: linear-gradient(145deg, #5a6a3d, #6b7c4a);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
+            box-shadow: inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #e8e5d5, #f5f3e8);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 3px solid #8a9d5f;
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #3d4a29;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding-top: 30px;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar {
+            width: 80%;
+            background: linear-gradient(180deg, #5a6a3d, #7a8d4d);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .bar:hover {
+            transform: translateY(-5px);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #3d4a29;
+        }
+
+        .bar-label {
+            font-weight: bold;
+            color: #3d4a29;
+            font-size: 1.1em;
+        }
+
+        .line-chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .line-path {
+            fill: none;
+            stroke: #5a6a3d;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .line-point {
+            fill: #5a6a3d;
+        }
+
+        .axis-label {
+            font-size: 0.9em;
+            fill: #3d4a29;
+            font-weight: bold;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            لوحة بيانات النظام الذكي (مباشر)
+        </div>
+        
+        <div class="grid">
+            <!-- كثافة حركة المرور -->
+            <div class="card">
+                <div class="card-title">كثافة المرور الحالية</div>
+                <div class="chart-container">
+                    <div class="bar-chart" id="trafficChart"></div>
+                </div>
+            </div>
+
+            <!-- تدفق المركبات -->
+            <div class="card">
+                <div class="card-title">تدفق المركبات (آخر ساعة)</div>
+                <div class="chart-container">
+                    <svg class="line-chart-svg" id="flowChart"></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات كثافة المرور
+        const trafficData = [
+            { label: 'الشرق', value: 14 },
+            { label: 'الغرب', value: 28 },
+            { label: 'الجنوب', value: 7 },
+            { label: 'الشمال', value: 21 }
+        ];
+
+        // رسم مخطط كثافة المرور
+        function drawTrafficChart() {
+            const container = document.getElementById('trafficChart');
+            const maxValue = Math.max(...trafficData.map(d => d.value));
+            
+            trafficData.forEach(data => {
+                const barItem = document.createElement('div');
+                barItem.className = 'bar-item';
+                
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                const height = (data.value / maxValue) * 200;
+                bar.style.height = height + 'px';
+                
+                const barValue = document.createElement('div');
+                barValue.className = 'bar-value';
+                barValue.textContent = data.value;
+                bar.appendChild(barValue);
+                
+                const barLabel = document.createElement('div');
+                barLabel.className = 'bar-label';
+                barLabel.textContent = data.label;
+                
+                barItem.appendChild(bar);
+                barItem.appendChild(barLabel);
+                container.appendChild(barItem);
+            });
+        }
+
+        // بيانات تدفق المركبات
+        const flowData = [0, 6, 9, 13, 6, 17, 11, 19, 17, 11];
+
+        // رسم مخطط التدفق
+        function drawFlowChart() {
+            const svg = document.getElementById('flowChart');
+            const width = svg.clientWidth;
+            const height = svg.clientHeight;
+            const padding = 40;
+            
+            const maxValue = Math.max(...flowData);
+            const xStep = (width - 2 * padding) / (flowData.length - 1);
+            const yScale = (height - 2 * padding) / maxValue;
+            
+            // رسم الخط
+            let pathData = '';
+            flowData.forEach((value, index) => {
+                const x = padding + index * xStep;
+                const y = height - padding - (value * yScale);
+                pathData += (index === 0 ? 'M' : 'L') + x + ',' + y + ' ';
+            });
+            
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', pathData);
+            path.setAttribute('class', 'line-path');
+            svg.appendChild(path);
+            
+            // رسم النقاط
+            flowData.forEach((value, index) => {
+                const x = padding + index * xStep;
+                const y = height - padding - (value * yScale);
+                
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', 4);
+                circle.setAttribute('class', 'line-point');
+                svg.appendChild(circle);
+            });
+            
+            // محور X
+            const xAxisLabel1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            xAxisLabel1.setAttribute('x', padding);
+            xAxisLabel1.setAttribute('y', height - 10);
+            xAxisLabel1.setAttribute('class', 'axis-label');
+            xAxisLabel1.textContent = '0';
+            svg.appendChild(xAxisLabel1);
+            
+            const xAxisLabel2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            xAxisLabel2.setAttribute('x', width - padding - 20);
+            xAxisLabel2.setAttribute('y', height - 10);
+            xAxisLabel2.setAttribute('class', 'axis-label');
+            xAxisLabel2.textContent = '28';
+            svg.appendChild(xAxisLabel2);
+            
+            const xAxisTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            xAxisTitle.setAttribute('x', width / 2);
+            xAxisTitle.setAttribute('y', height - 10);
+            xAxisTitle.setAttribute('class', 'axis-label');
+            xAxisTitle.setAttribute('text-anchor', 'middle');
+            xAxisTitle.textContent = '(آخر ساعة)';
+            svg.appendChild(xAxisTitle);
+        }
+
+        // تحميل المخططات
+        window.onload = function() {
+            drawTrafficChart();
+            drawFlowChart();
+        };
+    </script>
+</body>
+</html>
