@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختر المنطقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8f9fa; /* لون خلفية رسمي فاتح جداً */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+        }
+
+        /* حاوية الشعار والعنوان */
+        .header-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .ksa-logo-small {
+            width: 70px; /* حجم صغير ورسمي */
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            font-weight: 800; /* خط عريض رسمي */
+            letter-spacing: -0.5px;
+        }
+
+        /* شبكة العرض */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            padding-bottom: 50px;
+        }
+
+        /* كرت المنطقة */
+        .region-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px; /* حواف ناعمة رسمية */
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            height: 100px; /* ارتفاع ثابت وموحد */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* المنطقة النشطة (الرياض) */
+        .region-card.active {
+            cursor: pointer;
+            border-left: 5px solid #198754; /* زخرفة بسيطة تدل على التفعيل */
+        }
+
+        .region-card.active:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border-color: #198754;
+        }
+
+        .region-card.active .name {
+            color: #198754; /* لون أخضر رسمي عند التفعيل */
+        }
+
+        /* المناطق غير المفعلة */
+        .region-card.disabled {
+            background-color: #fafafa;
+            cursor: default;
+            opacity: 0.8;
+        }
+
+        /* اسم المنطقة */
+        .name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #4a4a4a;
+        }
+
+        /* علامة قريباً */
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #dc3545; /* أحمر رسمي */
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px; /* حواف شبه حادة */
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Emblem_of_Saudi_Arabia.svg" alt="KSA Logo" class="ksa-logo-small">
+        <h1>اختر المنطقة</h1>
+    </div>
+
+    <div class="grid-container">
+        <div class="region-card active" onclick="goToCities()">
+            <span class="name">منطقة الرياض</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة مكة المكرمة</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">المنطقة الشرقية</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة المدينة المنورة</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة عسير</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة القصيم</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة تبوك</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة حائل</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة الحدود الشمالية</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة الجوف</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة جازان</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة نجران</span>
+        </div>
+
+        <div class="region-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">منطقة الباحة</span>
+        </div>
+    </div>
+
+    <script>
+        function goToCities() {
+            window.location.href = "cities.html";
+        }
+    </script>
+
+</body>
+</html>

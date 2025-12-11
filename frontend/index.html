@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المرور الذكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #ffffff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .landing-container {
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .ksa-logo {
+            width: 180px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .ksa-logo:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 50px; /* زدت المسافة هنا لتعويض الجملة المحذوفة */
+            font-weight: 900;
+        }
+
+        .start-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            background-color: #333;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="landing-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Emblem_of_Saudi_Arabia.svg" alt="شعار المملكة" class="ksa-logo">
+        
+        <h1>نظام إدارة المرور الذكي</h1>
+
+        <button class="start-btn" onclick="goToRegionsPage()">بدء المراقبة الحية</button>
+    </div>
+
+    <script>
+        function goToRegionsPage() {
+            // سينقلك للصفحة التالية (Regions) التي سنصممها الآن
+            window.location.href = "regions.html";
+        }
+    </script>
+
+</body>
+</html>

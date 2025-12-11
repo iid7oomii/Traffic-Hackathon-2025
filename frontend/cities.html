@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختر المدينة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+        }
+
+        .header-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .ksa-logo-small {
+            width: 70px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .sub-title {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* شبكة العرض */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            padding-bottom: 50px;
+        }
+
+        /* كرت المدينة */
+        .city-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            height: 90px; /* ارتفاع أنيق */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* المدينة النشطة (الرياض) */
+        .city-card.active {
+            cursor: pointer;
+            border-left: 5px solid #198754;
+            background-color: #ffffff;
+        }
+
+        .city-card.active:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border-color: #198754;
+        }
+
+        .city-card.active .name {
+            color: #198754;
+            font-weight: 800;
+        }
+
+        /* المدن غير المفعلة */
+        .city-card.disabled {
+            background-color: #fafafa;
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        .name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #4a4a4a;
+        }
+
+        .badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 500;
+        }
+        
+        /* زر العودة */
+        .back-btn {
+            margin-top: 20px;
+            border: none;
+            background: none;
+            color: #666;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Emblem_of_Saudi_Arabia.svg" alt="KSA Logo" class="ksa-logo-small">
+        <h1>منطقة الرياض</h1>
+        <p class="sub-title">اختر المدينة أو المحافظة لعرض الحالة المرورية</p>
+    </div>
+
+    <div class="grid-container">
+        <div class="city-card active" onclick="goToDashboard()">
+            <span class="name">مدينة الرياض</span>
+        </div>
+
+        <div class="city-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">محافظة الدرعية</span>
+        </div>
+
+        <div class="city-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">محافظة الخرج</span>
+        </div>
+
+        <div class="city-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">محافظة المجمعة</span>
+        </div>
+
+        <div class="city-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">محافظة الزلفي</span>
+        </div>
+
+        <div class="city-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">محافظة وادي الدواسر</span>
+        </div>
+
+        <div class="city-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">محافظة شقراء</span>
+        </div>
+
+        <div class="city-card disabled">
+            <span class="badge">قريباً</span>
+            <span class="name">محافظة الدوادمي</span>
+        </div>
+    </div>
+    
+    <button class="back-btn" onclick="window.location.href='regions.html'">
+        ➡️ العودة للمناطق
+    </button>
+
+    <script>
+        function goToDashboard() {
+            // الانتقال للصفحة الرابعة (Dashboard)
+            window.location.href = "dashboard.html";
+        }
+    </script>
+
+</body>
+</html>
