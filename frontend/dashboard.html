@@ -79,12 +79,16 @@
             border: 2px solid #333;
         }
 
-        /* العنوان الطويل للفيديو */
+        /* --- تعديل العنوان ليكون في المنتصف --- */
         .video-label {
             position: absolute;
             top: 20px;
-            right: 20px;
-            left: 20px;
+            
+            /* هذه الأسطر الثلاثة تجعله في المنتصف تماماً */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap; /* يمنع نزول النص لسطرين */
+
             background-color: rgba(220, 53, 69, 0.95);
             color: white;
             padding: 10px 20px;
@@ -95,8 +99,6 @@
             align-items: center;
             gap: 10px;
             z-index: 10;
-            width: fit-content;
-            max-width: 90%;
             line-height: 1.4;
         }
 
