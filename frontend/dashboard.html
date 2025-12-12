@@ -79,33 +79,29 @@
             border: 2px solid #333;
         }
 
-        /* --- تعديل العنوان ليكون في المنتصف --- */
-        .video-label {
-            position: absolute;
-            top: 20px;
-            
-            /* هذه الأسطر الثلاثة تجعله في المنتصف تماماً */
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap; /* يمنع نزول النص لسطرين */
-
-            background-color: rgba(220, 53, 69, 0.95);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
+        /* --- شريط المعلومات الجديد أسفل الفيديو --- */
+        .video-info-bar {
+            background-color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px; /* مسافة بين الفيديو والنص */
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #dc3545; /* لون أحمر رسمي */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border: 1px solid #e1e4e8;
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 10px;
-            z-index: 10;
-            line-height: 1.4;
         }
 
-        .blink {
-            min-width: 10px;
-            height: 10px;
-            background-color: white;
+        /* نقطة الوميض (حمراء الآن لتناسب الخلفية البيضاء) */
+        .blink-red {
+            min-width: 12px;
+            height: 12px;
+            background-color: #dc3545;
             border-radius: 50%;
             animation: blinker 1.5s linear infinite;
         }
@@ -213,16 +209,18 @@
 
     <div class="main-content">
         
-        <div class="video-section">
-            <div class="video-label">
-                <span class="blink"></span>
+        <div>
+            <div class="video-section">
+                <video width="100%" height="100%" autoplay muted loop playsinline style="object-fit: fill; border-radius: 15px;">
+                    <source src="output_final.mp4" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+            </div>
+
+            <div class="video-info-bar">
+                <span class="blink-red"></span>
                 بث مباشر - حي الحمراء - طريق الامام عبدالله ابن سعود ابن عبدالعزيز - باتجاه الشرق
             </div>
-            
-            <video width="100%" height="100%" autoplay muted loop playsinline style="object-fit: fill; border-radius: 15px;">
-                <source src="output_final.mp4" type="video/mp4">
-                متصفحك لا يدعم تشغيل الفيديو.
-            </video>
         </div>
 
         <div class="charts-container">
